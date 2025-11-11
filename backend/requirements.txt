@@ -1,0 +1,43 @@
+# Django Core
+Django==5.2.8
+djangorestframework==3.15.2
+
+# Authentication
+djangorestframework-simplejwt==5.3.1
+
+# CORS
+django-cors-headers==4.5.0
+
+# Multi-tenancy (optionnel)
+# django-tenants==3.5.0
+
+# Database
+psycopg2-binary==2.9.9
+
+# Cache & Task Queue
+redis==5.0.1
+celery==5.3.6
+
+# Environment Variables
+python-dotenv==1.0.1
+
+# AI Integration
+openai==1.12.0
+
+# API Documentation
+drf-spectacular==0.27.1
+
+# PDF Generation
+reportlab==4.1.0
+Pillow==10.3.0
+
+# Email
+# django-sendgrid-v5==0.8.1  # Si utilisation de SendGrid
+
+# Security
+django-environ==0.11.2
+
+# Development (optionnel)
+# ipython==8.22.0
+# django-debug-toolbar==4.3.0
+

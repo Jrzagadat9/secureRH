@@ -1,34 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import useAuthStore from './store/authStore'
+import Layout from './components/Layout'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
+import Audits from './pages/Audits'
+import AuditDetail from './pages/AuditDetail'
+import NewAudit from './pages/NewAudit'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { checkAuth, isAuthenticated } = useAuthStore()
+
+  useEffect(() => {
+    checkAuth()
+  }, [checkAuth])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Router>
+      <Routes>
+        <Route 
+          path="/login" 
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />} 
+        />
+        <Route 
+          path="/register" 
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Register />} 
+        />
+        <Route 
+          path="/dashboard" 
+          element={isAuthenticated ? <Layout><Dashboard /></Layout> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/audits" 
+          element={isAuthenticated ? <Layout><Audits /></Layout> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/audits/new" 
+          element={isAuthenticated ? <Layout><NewAudit /></Layout> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/audits/:id" 
+          element={isAuthenticated ? <Layout><AuditDetail /></Layout> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/" 
+          element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} />} 
+        />
+      </Routes>
+    </Router>
   )
 }
 
