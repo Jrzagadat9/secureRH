@@ -3,6 +3,10 @@
 import os
 import sys
 
+# Explicitly add the project's outer backend directory to sys.path
+PROJECT_PARENT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if PROJECT_PARENT_DIR not in sys.path:
+    sys.path.insert(0, PROJECT_PARENT_DIR)
 
 def main():
     """Run administrative tasks."""
